@@ -1,14 +1,20 @@
 @import url("./reset.css");
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-/*  Cookies                                                 */
+/*  Cookies                                              */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 :root {
   --background-dark: rgb(24, 23, 31);
   --app-purple: #833cff;
+  --app-orange: #ff833c;
+  --app-green: #33ab4e;
+  --app-purple: #833cff;
   --app-blue: #3c57ff;
   --app-grey: #bebebe;
+  --app-ghost-white: #f8f8ff;
+  --app-deep-blue: #00bfff;
+  --app-purple-2: #c108ff;
 }
 
 body {
@@ -20,13 +26,175 @@ body {
   margin-inline: auto;
 }
 
+main {
+  height: 100dvh;
+  overflow: hidden;
+}
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-/*  paragraph                                           */
+/*  paragraph                                            */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+.paragraph {
+  color: #fff;
+  margin: 225px auto;
+  position: relative;
+}
 
+.paragraph p {
+  padding: 10px;
+  text-align: left;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+p .purple {
+  color: var(--app-purple);
+  text-decoration: underline dotted;
+}
+
+p .orange {
+  color: var(--app-orange);
+  text-decoration: underline dotted;
+}
+
+p .green {
+  color: var(--app-green);
+  text-decoration: underline dotted;
+}
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-/*  dialog                                           */
+/*  dialog                                               */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+.dialog {
+  width: 300px;
+  height: 370px;
+  border-radius: 15px;
+  background-color: var(--app-ghost-white);
+  font-size: 20px;
+  box-shadow: inset 1px 2px 5px rgba(0,0,0,0.3);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.dialog::backdrop {
+  backdrop-filter: blur(3px);
+}
+
+.cookie {
+  padding: 0px 20px;
+  color: #111;
+  visibility: hidden;
+}
+
+.settings {
+  padding: 0 20px;
+  color: #111;
+  margin-top: -340px;
+  /* visibility: hidden; */
+  text-align: center;
+}
+
+.heading {
+  font-size: 15px;
+  margin-top: 10px;
+  padding: 12px 0px;
+  color: var(--background-dark);
+}
+
+button {
+  padding: 10px;
+  width: 110px;
+  margin-top: 30px;
+  border-radius: 25px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.accept {
+  background-color: var(--app-deep-blue);
+  color: #fff;
+}
+
+.setting-btn {
+  background-color: var(--app-ghost-white);
+  color: var(--app-deep-blue);
+  border: solid 1.3px var(--app-deep-blue);
+}
+
+.accept + .setting-btn {
+  margin-left: 5px;
+}
+
+.preferences {
+  background-color: var(--app-ghost-white);
+  color: var(--app-deep-blue);
+  border: solid 1.3px var(--app-deep-blue);
+}
+
+.accept:hover, .setting-btn:hover, .preferences:hover  {
+  text-decoration: underline ;
+}
+
+.options { 
+  font-family: monospace;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 13px;
+}
+
+.switch {
+  position: relative;display: inline-block;
+  width: 50px;
+  height: 30px;
+}
+
+input:checked {
+  position: relative;
+  margin-left: 10px;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--app-grey);
+  transition: 0.4s;
+  border-radius: 30px;
+  box-shadow: inset 1px 2px 5px rgba(0,0,0,0.3);
+}
+
+.slider::before {
+  top: 3px;
+  bottom: 0px;
+  left: 5.2px;
+  right: 0;
+  position: absolute;
+  background-color: var(--app-ghost-white);
+  content: "";
+  height: 23px;
+  width: 23px;
+  border-radius: 20px;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: var(--app-purple);
+  box-shadow: inset 1px 2px 5px rgba(0,0,0,0.3);
+}
+
+input:checked + .slider::before {
+  transform: translateX(18px);
+    content: "";
+}
+
