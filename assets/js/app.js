@@ -5,26 +5,26 @@ import * as utils from './utils.js';
 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-/*  Organizer                                            */
+/*  Cookies                                              */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 //utils.print(document.cookie.length > 0 ? 'Cookies available' : 'No Cookies found');
 
 const acceptBtn = utils.select('.accept');
 const settingsBtn = utils.select('.setting-btn');
+const saveBtn = utils.select('.preferences');
 const browser = utils.select('.browser');
 const operatingSystem = utils.select('.operating_system');
 const screenWidth = utils.select('.screen_width');
 const screenHeight = utils.select('.screen_height');
 const cookieDialog = utils.select('.cookie');
 const settingsDialog = utils.select('.settings');
-const saveBtn = utils.select('.preferences');
+const dialog = utils.select('.dialog');
 
 
 
 //function to set cookies.
 function setCookie(name, value, options = {}) {
-    //const LIFETIME = 15;
     options = {
         path: '/', 
         SameSite: 'Lax', 
@@ -97,70 +97,70 @@ function systemDetect() {
 
 
 function printCookie() {
+  const LifeTime = 15;
     if (browser.checked) {
-      setCookie('Browser', `${browserDetect()}`, {'max-age': 15});
+      setCookie('Browser', `${browserDetect()}`, {'max-age': `${LifeTime}`});
       utils.print(`Browser: ${getCookie('Browser')}`);
     } else {
-      setCookie('Browser', `Rejected`, {'max-age': 15});
+      setCookie('Browser', `Rejected`, {'max-age': `${LifeTime}`});
+      utils.print(`Browser: ${getCookie('Browser')}`);
     }
 
     if (operatingSystem.checked) {
-      setCookie('System', `${systemDetect()}`, {'max-age': 15});
+      setCookie('System', `${systemDetect()}`, {'max-age': `${LifeTime}`});
       utils.print(`System: ${getCookie('System')}`);
     } else {
-      setCookie('System', `Rejected`, {'max-age': 15});
+      setCookie('System', `Rejected`, {'max-age': `${LifeTime}`});
+      utils.print(`System: ${getCookie('System')}`);
     }
 
     if (screenWidth.checked) {
-      setCookie('Screen-width', `${screen.width}`, {'max-age': 15});
+      setCookie('Screen-width', `${screen.width}`, {'max-age': `${LifeTime}`});
       utils.print(`Screen-width (px): ${getCookie('Screen-width')}`);
     } else {
-      setCookie('Screen-width', `Rejected`, {'max-age': 15});
+      setCookie('Screen-width', `Rejected`, {'max-age': `${LifeTime}`});
+      utils.print(`Screen-width (px): ${getCookie('Screen-width')}`);
     }
 
     if (screenHeight.checked) {
-      setCookie('Screen-height', `${screen.height}`, {'max-age': 15});
+      setCookie('Screen-height', `${screen.height}`, {'max-age': `${LifeTime}`});
       utils.print(`Screen-height (px): ${getCookie('Screen-height')}`);
     } else {
-      setCookie('Screen-height', `Rejected`, {'max-age': 15});
-    }
-
-    if (!browser.checked && !operatingSystem.checked && !screenWidth.checked && !screenHeight.checked) {
-      utils.print('Cookies rejected by user');
+      setCookie('Screen-height', `Rejected`, {'max-age': `${LifeTime}`});
+      utils.print(`Screen-height (px): ${getCookie('Screen-height')}`);
     }
 }
 
 function checkCookie() {
     if (document.cookie.length > 0) {
-        return true;
-    } else {
         return false;
+    } else {
+        return true;
     }
 }
 
 window.onload = function () {
-    if (!checkCookie()) {
-      setTimeout(() => {
-        cookieDialog.showModal();
-      }, 1000);
+    if (checkCookie()) {
+      dialog.style.visibility = 'visible';
     } else {
       getCookies();
+      dialog.style.visibility = 'hidden';
     }
 }
   
-onEvent('click', acceptBtn, () => {
-    cookieDialog.close();
+acceptBtn.addEventListener('click', () => {
+    dialog.style.visibility = 'hidden';
     printCookie();
-    utils.print('Cookie saved successfully');
 })
   
-onEvent('click', settingsBtn, () => {
-    cookieDialog.close();
-    settingsDialog.showModal();
+settingsBtn.addEventListener('click', () => {
+    cookieDialog.style.visibility = 'hidden';
+    settingsDialog.style.visibility = 'visible';
 })
   
-onEvent('click', saveBtn, () => {
+saveBtn.addEventListener('click', () => {
+    settingsDialog.style.visibility = 'hidden';
+    dialog.style.visibility = 'hidden';
     printCookie();
-    settingsDialog.close();
 })
 
