@@ -149,7 +149,7 @@ window.onload = function () {
 }
   
 acceptBtn.addEventListener('click', () => {
-    dialog.style.visibility = 'hidden';
+    dialog.style.display = 'none';
     printCookie();
 })
   
@@ -159,7 +159,7 @@ settingsBtn.addEventListener('click', () => {
 })
   
 saveBtn.addEventListener('click', () => {
-    settingsDialog.style.visibility = 'hidden';
+    settingsDialog.style.display = 'none';
     dialog.style.visibility = 'hidden';
     printCookie();
 })
